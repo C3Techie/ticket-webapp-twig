@@ -1,0 +1,27 @@
+# Composer dependencies
+/vendor/
+
+# Local data and storage (user/ticket JSON)
+/data/
+/storage/
+
+# Cache and temp
+/cache/
+.cache/
+.tmp/
+
+# Environment/config
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# PHPStorm
+/.phpstorm.meta.php

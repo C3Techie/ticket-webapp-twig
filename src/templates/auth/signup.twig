@@ -1,0 +1,157 @@
+{% extends 'layout/base.twig' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-bg-primary py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div>
+            <h2 class="mt-6 text-center text-3xl font-bold text-text-primary" data-aos="fade-up">
+                Create your account
+            </h2>
+            <p class="mt-2 text-center text-sm text-text-secondary" data-aos="fade-up" data-aos-delay="100">
+                Or{' '}
+                <a
+                    href="/auth/login"
+                    class="font-medium text-accent hover:text-accent-light transition-colors"
+                >
+                    sign in to your existing account
+                </a>
+            </p>
+        </div>
+        
+        {% if session.form_errors %}
+            <div class="bg-red-500/10 border border-red-500/20 rounded-md p-4" data-aos="fade-up">
+                <div class="text-sm text-red-400">
+                    {% for error in session.form_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        
+        <form class="mt-8 space-y-6" method="POST" action="/auth/signup" id="signupForm" data-aos="fade-up" data-aos-delay="200">
+            <div class="space-y-4">
+                <!-- Name Input -->
+                <div class="space-y-2">
+                    <label for="name" class="block text-sm font-medium text-text-secondary">
+                        Full name
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            autocomplete="name"
+                            placeholder="Enter your full name"
+                            value="{{ session.old_input.name ?? '' }}"
+                            class="w-full px-3 py-2 bg-bg-card border border-color-border rounded-md text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 input-focus"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <!-- Email Input -->
+                <div class="space-y-2">
+                    <label for="email" class="block text-sm font-medium text-text-secondary">
+                        Email address
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            autocomplete="email"
+                            placeholder="Enter your email"
+                            value="{{ session.old_input.email ?? '' }}"
+                            class="w-full px-3 py-2 bg-bg-card border border-color-border rounded-md text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 input-focus"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <!-- Password Input -->
+                <div class="space-y-2">
+                    <label for="password" class="block text-sm font-medium text-text-secondary">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="new-password"
+                            placeholder="Create a password (min 6 characters)"
+                            class="w-full px-3 py-2 bg-bg-card border border-color-border rounded-md text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 input-focus"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <!-- Confirm Password Input -->
+                <div class="space-y-2">
+                    <label for="confirmPassword" class="block text-sm font-medium text-text-secondary">
+                        Confirm password
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            type="password"
+                            autocomplete="new-password"
+                            placeholder="Confirm your password"
+                            class="w-full px-3 py-2 bg-bg-card border border-color-border rounded-md text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 input-focus"
+                            required
+                        >
+                    </div>
+                    <p id="passwordError" class="text-sm text-red-400 hidden"></p>
+                </div>
+            </div>
+
+            <div>
+                <button
+                    type="submit"
+                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed btn-focus"
+                >
+                    Create Account
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('signupForm');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+    const button = form.querySelector('button[type="submit"]');
+    
+    function validatePasswords() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            passwordError.textContent = 'Passwords do not match';
+            passwordError.classList.remove('hidden');
+            confirmPasswordInput.classList.add('border-red-500');
+            return false;
+        } else {
+            passwordError.classList.add('hidden');
+            confirmPasswordInput.classList.remove('border-red-500');
+            return true;
+        }
+    }
+    
+    confirmPasswordInput.addEventListener('input', validatePasswords);
+    passwordInput.addEventListener('input', validatePasswords);
+    
+    form.addEventListener('submit', function(e) {
+        if (!validatePasswords()) {
+            e.preventDefault();
+            return;
+        }
+        
+        button.disabled = true;
+        button.innerHTML = 'Creating account...';
+        button.classList.add('opacity-50', 'cursor-not-allowed');
+    });
+});
+</script>
+{% endblock %}

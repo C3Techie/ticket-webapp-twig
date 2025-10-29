@@ -1,0 +1,132 @@
+{% extends 'layout/base.twig' %}
+
+{% block content %}
+<div class="flex flex-col">
+    {% include 'layout/hero.twig' %}
+    
+    <!-- Features Section -->
+    <section class="py-20 bg-bg-primary">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4" data-aos="fade-up">
+                    Why Choose TicketFlow?
+                </h2>
+                <p class="text-xl text-text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Built with modern technology and user experience in mind, 
+                    TicketFlow helps teams deliver exceptional support.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1: Secure & Reliable -->
+                <div class="bg-bg-card rounded-xl p-6 shadow-md border border-color-border hover:shadow-lg transition-all duration-300 group hover:-translate-y-1" 
+                     data-aos="fade-up" 
+                     data-aos-delay="200">
+                    <div class="w-12 h-12 flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">
+                        Secure & Reliable
+                    </h3>
+                    <p class="text-text-secondary">
+                        Enterprise-grade security with reliable ticket tracking and data protection.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Lightning Fast -->
+                <div class="bg-bg-card rounded-xl p-6 shadow-md border border-color-border hover:shadow-lg transition-all duration-300 group hover:-translate-y-1" 
+                     data-aos="fade-up" 
+                     data-aos-delay="300">
+                    <div class="w-12 h-12 flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">
+                        Lightning Fast
+                    </h3>
+                    <p class="text-text-secondary">
+                        Quick response times and smooth performance for efficient support management.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Team Collaboration -->
+                <div class="bg-bg-card rounded-xl p-6 shadow-md border border-color-border hover:shadow-lg transition-all duration-300 group hover:-translate-y-1" 
+                     data-aos="fade-up" 
+                     data-aos-delay="400">
+                    <div class="w-12 h-12 flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-text-primary mb-2">
+                        Team Collaboration
+                    </h3>
+                    <p class="text-text-secondary">
+                        Seamless collaboration between team members with real-time updates.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-bg-card">
+        <div class="container text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4" data-aos="fade-up">
+                Ready to Streamline Your Support?
+            </h2>
+            <p class="text-xl text-text-secondary mb-8" data-aos="fade-up" data-aos-delay="100">
+                Join thousands of teams using TicketFlow to manage their support tickets efficiently.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/auth/signup" 
+                   class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-md bg-accent text-white hover:bg-accent-dark shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+                   data-aos="fade-up" 
+                   data-aos-delay="200">
+                    Get Started Free
+                </a>
+                <a href="/auth/login" 
+                   class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-md border border-accent text-accent hover:bg-accent hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95"
+                   data-aos="fade-up" 
+                   data-aos-delay="300">
+                    Login to Dashboard
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Additional JavaScript for enhanced interactions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click animations to buttons
+    const buttons = document.querySelectorAll('button, a[href*="/auth"]');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Only add animation if it's not preventing default
+            if (!e.defaultPrevented) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            }
+        });
+    });
+
+    // Add hover effects to feature cards
+    const featureCards = document.querySelectorAll('.bg-bg-card.rounded-xl');
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

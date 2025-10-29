@@ -1,0 +1,75 @@
+<div class="bg-bg-card rounded-lg p-6 shadow-md border border-color-border hover:shadow-lg transition-all duration-200" data-ticket-id="{{ ticket.id }}">
+    <div class="flex justify-between items-start mb-3">
+        <h3 class="text-lg font-semibold text-text-primary flex-1 pr-4">
+            {{ ticket.title }}
+        </h3>
+        <div class="flex space-x-2">
+            <button
+                onclick="openEditModal({{ ticket|json_encode }})"
+                class="p-2 rounded-md transition-colors text-text-secondary hover:text-text-primary hover:bg-bg-hover"
+                aria-label="Edit ticket"
+            >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+            </button>
+            <button
+                onclick="openDeleteModal('{{ ticket.id }}')"
+                class="p-2 rounded-md transition-colors text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                aria-label="Delete ticket"
+            >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    {% if ticket.description %}
+    <p class="text-text-secondary text-sm mb-3 line-clamp-2">
+        {{ ticket.description }}
+    </p>
+    {% endif %}
+
+    <div class="flex flex-wrap gap-2 mb-3">
+        {# Status Badge #}
+        {% set statusColors = {
+            'open': 'bg-green-500/20 text-green-400 border-green-500/30',
+            'in_progress': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+            'closed': 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+        } %}
+        
+        {% set statusIcons = {
+            'open': '<svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>',
+            'in_progress': '<svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+            'closed': '<svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+        } %}
+        
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border {{ statusColors[ticket.status] }}">
+            <span class="mr-1">{{ statusIcons[ticket.status]|raw }}</span>
+            <span class="ml-1 capitalize">
+                {{ ticket.status|replace({'_': ' '}) }}
+            </span>
+        </span>
+
+        {# Priority Badge #}
+        {% if ticket.priority %}
+        {% set priorityColors = {
+            'high': 'bg-red-500/20 text-red-400 border-red-500/30',
+            'medium': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+            'low': 'bg-green-500/20 text-green-400 border-green-500/30'
+        } %}
+        
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border {{ priorityColors[ticket.priority] }}">
+            <span class="capitalize">{{ ticket.priority }}</span>
+        </span>
+        {% endif %}
+    </div>
+
+    <div class="flex justify-between items-center text-xs text-text-muted mt-2">
+        <span>Created: {{ ticket.created_at|date('M j, Y') }}</span>
+        {% if ticket.reporter %}
+        <span>By: {{ ticket.reporter }}</span>
+        {% endif %}
+    </div>
+</div>
